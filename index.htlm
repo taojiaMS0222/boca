@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>シミュレーション計算ツール</title>
+</head>
+<body>
+    <h1>シミュレーション計算ツール</h1>
+    <label>単価（円）: <input type="number" id="unitPrice" value="1000"></label><br>
+    <label>客数（人）: <input type="number" id="numCustomers" value="50"></label><br>
+    <label>週の営業日数（日）: <input type="number" id="daysPerWeek" value="6"></label><br>
+    <label>原価率（%）: <input type="number" id="costRate" value="30"></label><br>
+    <label>家賃（円）: <input type="number" id="rent" value="200000"></label><br>
+    <label>水光熱費（円）: <input type="number" id="utilities" value="50000"></label><br><br>
+    <button onclick="calculate()">計算</button><br><br>
+    
+    <div id="result"></div>
+    
+    <script>
+        function calculate() {
+            let unitPrice = document.getElementById("unitPrice").value;
+            let numCustomers = document.getElementById("numCustomers").value;
+            let daysPerWeek = document.getElementById("daysPerWeek").value;
+            let costRate = document.getElementById("costRate").value;
+            let rent = document.getElementById("rent").value;
+            let utilities = document.getElementById("utilities").value;
+
+            // 売上の計算
+            let totalSales = unitPrice * numCustomers * daysPerWeek * 4;
+
+            // 原価の計算
+            let cost = totalSales * costRate / 100;
+
+            // 粗利益の計算
+            let grossProfit = totalSales - cost;
+
+            // 最終利益の計算（家賃と水光熱費を差し引く）
+            let netProfit = grossProfit - rent - utilities;
+
+            // 結果を表示
+            document.getElementById("result").innerHTML = `
+                4週間の合計売上（円）: ${totalSales}<br>
+                原価額（円）: ${cost}<br>
+                粗利益（円）: ${grossProfit}<br>
+                家賃: ${rent}<br>
+                水光熱費: ${utilities}<br>
+                最終利益（円）: ${netProfit}
+            `;
+        }
+    </script>
+</body>
+</html>
